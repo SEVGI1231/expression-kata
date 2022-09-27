@@ -1,4 +1,4 @@
-import { evaluate, Expression, SimplifiedExpression, apply } from "./expressions";
+import { evaluate, Expression, apply } from "./expressions";
 describe("expression evaluation", () => {
     test("expression works with a literal", () => {
         const tree1: Expression = 10;
@@ -38,13 +38,9 @@ describe("expression evaluation", () => {
     });
    
 });
-describe("simple expression evaluation", () => {
+describe("test apply ", () => {
     test ("test for simplified Obj", ()=>{
-        const simpleTree: SimplifiedExpression={
-            op: "add",
-            a: 1,
-            b: 5
-        };
-        expect(apply(simpleTree)).toBe(6)
+        
+        expect(apply("add", 1, 5)).toBe(6)
     })
 });

@@ -31,29 +31,23 @@ function evaluate(exp: Expression): number {
     if (typeof exp === 'number'){
         return exp 
     }
-    else if (typeof exp.a === "number" && typeof exp.b==="number"){
-        return apply({op:exp.op, a:exp.a, b:exp.b})
-    }
     let numA= evaluate(exp.a)
     let numB= evaluate(exp.b)
-    return apply({op:exp.op, a:numA, b:numB})
-   
+    return apply(exp.op, numA, numB)  
 }
-export type SimplifiedExpression=
-    {op: Operator; a: number; b:number}
 
-export function apply(exp: SimplifiedExpression): number{
-    if (exp.op==="multiply"){
-        return exp.a*exp.b
+export function apply(op:Operator, a:number, b:number): number{
+    if (op==="multiply"){
+        return a*b
     }
-    else if (exp.op==="add"){
-        return exp.a+exp.b
+    else if (op==="add"){
+        return a+b
     }
-    else if (exp.op==="subtract"){
-        return (exp.a-exp.b)
+    else if (op==="subtract"){
+        return (a-b)
     }
     else {
-        return (exp.a/exp.b)
+        return (a/b)
     }
 }
 
