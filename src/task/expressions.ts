@@ -24,16 +24,30 @@ HELPER FUNC translateOpIntoCode(op): string{
 
 export type Expression =
     | number
+    | string
     | { op: Operator; a: Expression; b: Expression };
 
+export type Variables= {[key:string]:number}
 
-function evaluate(exp: Expression): number {
+// function evaluate(exp: Expression): number {
+//     if (typeof exp === 'number'){
+//         return exp 
+//     }
+//     let numA= evaluate(exp.a)
+//     let numB= evaluate(exp.b)
+//     return apply(exp.op, numA, numB)  
+// }
+
+function evaluate(exp: Expression, vars:Variables):number{
     if (typeof exp === 'number'){
         return exp 
     }
-    let numA= evaluate(exp.a)
-    let numB= evaluate(exp.b)
-    return apply(exp.op, numA, numB)  
+    if (typeof exp === "string"){
+        return vars[exp]
+    }
+    let numA= evaluate(exp.a, vars)
+    let numB= evaluate(exp.b, vars)
+    return apply(exp.op, numA, numB) 
 }
 
 export function apply(op:Operator, a:number, b:number): number{
@@ -50,5 +64,6 @@ export function apply(op:Operator, a:number, b:number): number{
         return (a/b)
     }
 }
+
 
 export { evaluate };
